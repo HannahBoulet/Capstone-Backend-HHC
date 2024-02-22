@@ -5,15 +5,18 @@ CREATE TABLE Login(
 );
 
 CREATE TABLE UserInfo(
-    clientID text FOREIGN KEY REFERENCES UserInfo(clientID)
-	name text,
+    clientFirst text,
+    clientLast text,
 	foodBox bit,
 	medication bit,
     goalWeight int,
     currentWeight int,
     goalExercise text,
     currentExercise text,
-	clientPicture text
+	clientPicture text,
+    clientID text,
+    FOREIGN KEY(clientID) REFERENCES Login(clientID)
+
 );
 
 CREATE TABLE Events(
@@ -26,6 +29,8 @@ CREATE TABLE Events(
 );
 
 CREATE TABLE Registration(
-    eventID text FOREIGN KEY REFERENCES Events(eventID),
-    clientID text FOREIGN KEY REFERENCES UserInfo(clientID)
+    eventID text,
+    clientID text,
+    FOREIGN KEY(eventID) REFERENCES Events(eventID),
+    FOREIGN KEY(clientID) REFERENCES UserInfo(clientID)
 );
