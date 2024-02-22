@@ -1,36 +1,36 @@
 CREATE TABLE Login(
-    userName text UNIQUE,
-    password text,
-	clientID text UNIQUE
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    userName varchar(50) UNIQUE,
+    password varchar(50),
+	clientID varchar(50) UNIQUE
 );
 
 CREATE TABLE UserInfo(
-    clientFirst text,
-    clientLast text,
+    id int NOT NULL PRIMARY KEY,
+    clientFirst varchar(50),
+    clientLast varchar(50),
 	foodBox bit,
 	medication bit,
     goalWeight int,
     currentWeight int,
     goalExercise text,
     currentExercise text,
-	clientPicture text,
-    clientID text,
-    FOREIGN KEY(clientID) REFERENCES Login(clientID)
-
+	clientPicture varchar(100),
+    FOREIGN KEY(id) REFERENCES Login(id)
 );
 
 CREATE TABLE Events(
 	eventID int UNIQUE,
-	eventName text,
+	eventName varchar(50),
 	eventDate date,
 	eventDescription text,
 	eventLimit int,
-	eventPicture text
+	eventPicture varchar(100)
 );
 
 CREATE TABLE Registration(
-    eventID text,
-    clientID text,
+    eventID int,
+    id int,
     FOREIGN KEY(eventID) REFERENCES Events(eventID),
-    FOREIGN KEY(clientID) REFERENCES UserInfo(clientID)
+    FOREIGN KEY(id) REFERENCES UserInfo(id)
 );
