@@ -22,10 +22,10 @@ CREATE TABLE Events(
 	eventDate date,
 	eventDescription text,
 	eventLimit int,
-	eventPicture text,
+	eventPicture text
 );
 
 CREATE TABLE Registration(
     FOREIGN KEY (eventID) REFERENCES Events(eventID),
-	FOREIGN KEY (clientId) REFERENCES Login(clientID),
+	FOREIGN KEY (clientId) REFERENCES Login(clientID)
 );
