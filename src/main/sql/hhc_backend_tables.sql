@@ -5,7 +5,7 @@ CREATE TABLE Login(
 );
 
 CREATE TABLE UserInfo(
-    clientID FOREIGN KEY REFERENCES UserInfo(clientID)
+    clientID text FOREIGN KEY REFERENCES UserInfo(clientID)
 	name text,
 	foodBox bit,
 	medication bit,
@@ -26,6 +26,6 @@ CREATE TABLE Events(
 );
 
 CREATE TABLE Registration(
-    eventID FOREIGN KEY REFERENCES Events(eventID),
-    clientID FOREIGN KEY REFERENCES UserInfo(clientID)
+    eventID text FOREIGN KEY REFERENCES Events(eventID),
+    clientID text FOREIGN KEY REFERENCES UserInfo(clientID)
 );
