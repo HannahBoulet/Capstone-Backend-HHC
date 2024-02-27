@@ -37,10 +37,7 @@ public class ClientLogin {
     }
 
 
-    public String setClientPassword()
-    {
-        return clientPassword;
-    }
+    public String setClientPassword() { return clientPassword; }
     public void setClientPassword(String clientPassword){
         this.clientPassword= clientPassword;
     }
