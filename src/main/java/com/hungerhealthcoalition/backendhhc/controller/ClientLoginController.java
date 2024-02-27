@@ -13,7 +13,6 @@ import java.util.Optional;
 
 @RestController
 public class ClientLoginController {
-    @Autowired
     private ClientLoginRepository clientrepo;
 
     @GetMapping("/User")
