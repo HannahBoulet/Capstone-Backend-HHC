@@ -1,10 +1,8 @@
 package com.hungerhealthcoalition.backendhhc.controller;
-import ch.qos.logback.core.net.server.Client;
+
 import com.hungerhealthcoalition.backendhhc.model.ClientLogin;
 import com.hungerhealthcoalition.backendhhc.repository.ClientLoginRepository;
-import jakarta.persistence.Id;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
