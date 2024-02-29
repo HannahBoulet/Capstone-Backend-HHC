@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class ClientLogin {
 
     @Id
-    @Column(name = "Client")
+    @Column(name = "ClientID")
     private String ClientID;
 
 
@@ -17,7 +17,7 @@ public class ClientLogin {
 
     @Id
     @Column(name = "password")
-    private String clientPassword;
+    private String password;
 
 
     public String getClientID() {
@@ -37,8 +37,8 @@ public class ClientLogin {
     }
 
 
-    public String getClientPassword() { return clientPassword; }
-    public void setClientPassword(String clientPassword){
-        this.clientPassword= clientPassword;
+    public String getPassword() { return password; }
+    public void setPassword(String password){
+        this.password= password;
     }
 }

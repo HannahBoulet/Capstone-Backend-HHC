@@ -31,7 +31,7 @@ public class ClientLoginController {
         //Client,userName,password
         ClientLogin c = new ClientLogin();
         c.setClientID(User);
-        c.setClientPassword(User);
+        c.setPassword(User);
         c.setUserName(User);
         return clientrepo.save(c);
     }
