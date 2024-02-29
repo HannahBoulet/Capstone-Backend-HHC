@@ -24,7 +24,7 @@ public class ClientLogin {
         return ClientID;
     }
 
-    public void setClientID(String id) {
+    public void setClientID(String ClientID) {
         this.ClientID = ClientID;
     }
 
@@ -37,7 +37,7 @@ public class ClientLogin {
     }
 
 
-    public String setClientPassword() { return clientPassword; }
+    public String getClientPassword() { return clientPassword; }
     public void setClientPassword(String clientPassword){
         this.clientPassword= clientPassword;
     }
