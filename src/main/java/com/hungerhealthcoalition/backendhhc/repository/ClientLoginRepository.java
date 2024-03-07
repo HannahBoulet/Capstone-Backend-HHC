@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
+@Repository
 public interface ClientLoginRepository extends JpaRepository<ClientLogin, String> {
-    @Query("SELECT q FROM ClientLogin q WHERE q.userName LIKE %?1%")
-    List<ClientLogin> getClientLoginBy(String clientLogin);
 }

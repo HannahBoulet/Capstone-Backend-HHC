@@ -11,11 +11,9 @@ public class ClientLogin {
     private String ClientID;
 
 
-    @Id
     @Column(name = "userName")
     private String userName;
 
-    @Id
     @Column(name = "password")
     private String password;
 
