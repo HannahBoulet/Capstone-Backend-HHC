@@ -34,3 +34,6 @@ CREATE TABLE Registration(
     FOREIGN KEY(eventID) REFERENCES Events(eventID),
     FOREIGN KEY(id) REFERENCES UserInfo(id)
 );
+
+
+drop table Login;

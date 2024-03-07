@@ -29,6 +29,11 @@ public class ClientLoginController {
         return clientLoginRepository.findAll();
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public String saveClient(@RequestBody ClientLogin clientLogin){
+        clientLoginRepository.save(clientLogin);
+        return "Saved...";
+    }
    /* @GetMapping("/User/{UserName}")
     public ResponseEntity<String> readUsername(@PathVariable("UserName") String id)
     {
