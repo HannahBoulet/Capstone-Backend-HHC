@@ -1,38 +1,38 @@
 CREATE TABLE Login(
-                      id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                      userName varchar(50) UNIQUE,
-                      password varchar(50),
-                      clientID varchar(50) UNIQUE
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    userName varchar(50) UNIQUE,
+    password varchar(50),
+	clientID varchar(50) UNIQUE
 );
 
 CREATE TABLE UserInfo(
-                         id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                         clientFirst varchar(50),
-                         clientLast varchar(50),
-                         foodBox bit,
-                         medication bit,
-                         goalWeight int,
-                         currentWeight int,
-                         goalExercise text,
-                         currentExercise text,
-                         clientPicture varchar(100),
-                         FOREIGN KEY(id) REFERENCES Login(id)
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    clientFirst varchar(50),
+    clientLast varchar(50),
+	foodBox bit,
+	medication bit,
+    goalWeight int,
+    currentWeight int,
+    goalExercise text,
+    currentExercise text,
+	clientPicture varchar(100),
+    FOREIGN KEY(id) REFERENCES Login(id)
 );
 
 CREATE TABLE Events(
-                       eventID int UNIQUE AUTO_INCREMENT,
-                       eventName varchar(50),
-                       eventDate date,
-                       eventDescription text,
-                       eventLimit int,
-                       eventPicture varchar(100)
+	eventID int UNIQUE AUTO_INCREMENT,
+	eventName varchar(50),
+	eventDate date,
+	eventDescription text,
+	eventLimit int,
+	eventPicture varchar(100)
 );
 
 CREATE TABLE Registration(
-                             eventID int,
-                             id int,
-                             FOREIGN KEY(eventID) REFERENCES Events(eventID),
-                             FOREIGN KEY(id) REFERENCES UserInfo(id)
+    eventID int,
+    id int,
+    FOREIGN KEY(eventID) REFERENCES Events(eventID),
+    FOREIGN KEY(id) REFERENCES UserInfo(id)
 );
 
 #---------------------------------------------------------------------------------------------------------------------------------------
@@ -46,32 +46,32 @@ delete from Events where eventName = eventName;
 #select statments
 
 SELECT
-    id,
+        id,
     userName,
     password,
-    clientID
+	clientID
 from Login;
 
 SELECT
-    id,
+   id,
     clientFirst,
     clientLast,
-    foodBox,
-    medication ,
+	foodBox,
+	medication ,
     goalWeight ,
     currentWeight ,
     goalExercise ,
     currentExercise ,
-    clientPicture
+	clientPicture
 from UserInfo;
 
 SELECT
-    eventID ,
-    eventName,
-    eventDate,
-    eventDescription,
-    eventLimit,
-    eventPicture
+	eventID ,
+	eventName,
+	eventDate,
+	eventDescription,
+	eventLimit,
+	eventPicture
 from Events;
 
 SELECT
@@ -83,21 +83,21 @@ from Registration;
 #Insert test data
 
 INSERT INTO Login (userName, password, clientID) VALUES
-                                                     ('user1', 'password1', 'client123'),
-                                                     ('user2', 'password2', 'client456');
+('user1', 'password1', 'client123'),
+('user2', 'password2', 'client456');
 
 INSERT INTO UserInfo (ID,clientFirst, clientLast, foodBox, medication, goalWeight, currentWeight, goalExercise, currentExercise, clientPicture) VALUES
-                                                                                                                                                    (1,'John', 'Doe', 1, 0, 180, 175, '3 times a week gym', 'Walking daily', 'picture.jpg'),
-                                                                                                                                                    (2,'Jane', 'Smith', 0, 1, 150, 155, 'Yoga twice a week', 'Pilates once a week', 'profile_pic.png');
+(1,'John', 'Doe', 1, 0, 180, 175, '3 times a week gym', 'Walking daily', 'picture.jpg'),
+(2,'Jane', 'Smith', 0, 1, 150, 155, 'Yoga twice a week', 'Pilates once a week', 'profile_pic.png');
 
 INSERT INTO Events (eventName, eventDate, eventDescription, eventLimit, eventPicture) VALUES
-                                                                                          ('Community Potluck', '2024-03-15', 'Bring your favorite dish to share!', 20, 'potluck.jpg'),
-                                                                                          ('Fitness Workshop', '2024-04-20', 'Learn new exercise routines', 15, 'workshop.jpg');
+('Community Potluck', '2024-03-15', 'Bring your favorite dish to share!', 20, 'potluck.jpg'),
+('Fitness Workshop', '2024-04-20', 'Learn new exercise routines', 15, 'workshop.jpg');
 
 
 INSERT INTO Registration (eventID, id) VALUES
-                                           (1, 1), -- John Doe registers for Community Potluck
-                                           (2, 2); -- Jane Smith registers for Fitness Workshop
+(1, 1), -- John Doe registers for Community Potluck
+(2, 2); -- Jane Smith registers for Fitness Workshop
 
 #---------------------------------------------------------------------------------------------------------------------------------------
 #drop tables
@@ -180,20 +180,20 @@ CREATE PROCEDURE CreateUserAndUserInfo(
     IN clientID2 VARCHAR(50),
     clientFirst2 varchar(50),
     clientLast2 varchar(50),
-    foodBox2 bit,
-    medication2 bit,
+	foodBox2 bit,
+	medication2 bit,
     goalWeight2 int,
     currentWeight2 int,
     goalExercise2 text,
     currentExercise2 text,
-    clientPicture2 varchar(100)
+	clientPicture2 varchar(100)
 )
 
 begin
     CALL AddUserLogin (userName2,password2, clientID2);
 
     INSERT INTO UserInfo (clientFirst, clientLast, foodBox, medication, goalWeight, currentWeight, goalExercise, currentExercise, clientPicture) VALUES
-        (clientFirst2,clientLast2, foodBox2, medication2, goalWeight2, currentWeight2, goalExercise2, currentExercise2, clientPicture2 );
+    (clientFirst2,clientLast2, foodBox2, medication2, goalWeight2, currentWeight2, goalExercise2, currentExercise2, clientPicture2 );
 END //
 
 DELIMITER ;
@@ -203,3 +203,4 @@ DELIMITER ;
 CALL CreateUserAndUserInfo('user1','password1', 'client123', 'John', 'Doe', 1, 0, 180, 175, '3 times a week gym', 'Walking daily', 'picture.jpg');
 
 CALL CreateUserAndUserInfo('user2','password2', 'client456', 'Jane', 'Smith', 0, 1, 150, 155, 'Yoga twice a week', 'Pilates once a week', 'profile_pic.png');
+
