@@ -1,14 +1,17 @@
 package com.hungerhealthcoalition.backendhhc.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-@Table (name = "Login")
+@Table(name = "Login")
 public class ClientLogin {
 
     @Id
-    @Column(name = "ClientID")
-    private String ClientID;
+    @Column(name = "id")
+    private String id;
 
 
     @Column(name = "userName")
@@ -18,13 +21,12 @@ public class ClientLogin {
     private String password;
 
 
-
-    public String getClientID() {
-        return ClientID;
+    public String getid() {
+        return id;
     }
 
-    public void setClientID(String ClientID) {
-        this.ClientID = ClientID;
+    public void setid(String id) {
+        this.id = id;
     }
 
     public String getUserName() {
@@ -36,8 +38,11 @@ public class ClientLogin {
     }
 
 
-    public String getPassword() { return password; }
-    public void setPassword(String password){
-        this.password= password;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
