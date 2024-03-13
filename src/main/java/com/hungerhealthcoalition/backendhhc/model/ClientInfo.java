@@ -15,6 +15,10 @@ public class ClientInfo {
     @Column(name = "id")
     private String clientID;
 
+    @Id
+    @Column(name = "password")
+    private  String password;
+
     @Column(name = "clientFirst")
     private String clientFirst;
 
@@ -108,5 +112,13 @@ public class ClientInfo {
 
     public void setCurrentGoal(int currentGoal) {
         this.currentGoal = currentGoal;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
