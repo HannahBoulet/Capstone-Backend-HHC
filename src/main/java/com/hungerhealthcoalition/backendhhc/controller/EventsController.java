@@ -95,6 +95,4 @@ public class EventsController {
         return result;
     }
 
-    //testing local branch fix
-
 }
