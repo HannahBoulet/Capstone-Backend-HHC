@@ -40,10 +40,59 @@ public class EventsController {
         return result;
     }
 
+    /**
+     * Add a new event to the Events table
+     *
+     * @param events the new events to be added
+     * @return new events
+     */
+    @PostMapping
+    public Events addEvents(@RequestBody Events events){
+        eventsRepository.save(events);
+        return events;
+    }
 
+    /**
+     * Updates an existing event
+     *
+     * @param id  the id of the events to update
+     * @param events  the object being updated
+     * @return the updated events
+     */
+    @PutMapping("/{id}")
+    public List<Events> updateEvents(@PathVariable("id") String id, @RequestBody Events events) {
+        Optional<Events> existingEventsOptional = eventsRepository.findById(id);
+        List<Events> result = new ArrayList<>();
 
+        if(existingEventsOptional.isPresent()){
+            Events existingEvents = existingEventsOptional.get();
+            existingEvents.setEventDate(events.getEventDate());
+            existingEvents.setEventLimit(events.getEventLimit());
+            existingEvents.setEventDescription(events.getEventDescription());
+            existingEvents.setEventName(events.getEventName());
+            existingEvents.setEventPicture(events.getEventPicture());
+            eventsRepository.save(existingEvents);
+            result.add(existingEvents);
+        }
 
+        return result;
+    }
 
-
+    /**
+     * Deletes an events object by ID
+     *
+     * @param id the id of event to delete
+     * @return list containing the deleted events otherwise empty list
+     */
+    @DeleteMapping("/{id}")
+    public List<Events> deleteEvents(@PathVariable("id") String id){
+        List<Events> result = new ArrayList<>();
+        Optional<Events> eventsOptional = eventsRepository.findById(id);
+        if (eventsOptional.isPresent()) {
+            eventsRepository.deleteById(id);
+            result.add(eventsOptional.get());
+        }
+        return result;
+    }
 
 }
