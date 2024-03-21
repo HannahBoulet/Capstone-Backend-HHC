@@ -9,18 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @RestController
-@RequestMapping("/api/Logins")
+@RequestMapping("/api/Registration")
 public class RegistrationController {
 
 
+    private RegistrationRepository registrationRepository;
 
-
-
-
-    private RegistrationRepository RegistrationRepository;
-
-    public RegistrationController(RegistrationRepository RegistrationRepository) {
-        this.RegistrationRepository = RegistrationRepository;
+    public RegistrationController(RegistrationRepository registrationRepository) {
+        this.registrationRepository = registrationRepository;
     }
 
     /**
@@ -30,7 +26,7 @@ public class RegistrationController {
      */
     @GetMapping
     public List<Registration> getAllPairings() {
-        return RegistrationRepository.findAll();
+        return registrationRepository.findAll();
     }
 
     /**
@@ -41,7 +37,7 @@ public class RegistrationController {
      */
     @GetMapping("/{id}")
     public List<Registration> getClientbyID(@PathVariable("id") String id) {
-        Optional<Registration> RegistrationOptional = RegistrationRepository.findById(id);
+        Optional<Registration> RegistrationOptional = registrationRepository.findById(id);
         List<Registration> result = new ArrayList<>();
 
         RegistrationOptional.ifPresent(result::add);
@@ -49,9 +45,9 @@ public class RegistrationController {
     }
 
 
-//    @GetMapping("/{id}")
+//    @GetMapping("/eventID/{eventId}")
 //    public List<Registration> getClientbyEventID(@PathVariable("eventID") String eventID) {
-//        Optional<Registration> RegistrationOptional = RegistrationRepository.findById(eventID);
+//        Optional<Registration> RegistrationOptional = registrationRepository.findById(eventID);
 //        List<Registration> result = new ArrayList<>();
 //
 //        RegistrationOptional.ifPresent(result::add);
@@ -66,7 +62,7 @@ public class RegistrationController {
      */
     @PostMapping
     public Registration addClientLogin(@RequestBody Registration registration) {
-        RegistrationRepository.save(registration);
+        registrationRepository.save(registration);
         return registration;
     }
 
@@ -79,14 +75,14 @@ public class RegistrationController {
      */
     @PutMapping("/{id}")
     public List<Registration> updateRegistration(@PathVariable("id") String id, @RequestBody Registration registration) {
-        Optional<Registration> existingRegistrationOptional = RegistrationRepository.findById(id);
+        Optional<Registration> existingRegistrationOptional = registrationRepository.findById(id);
         List<Registration> result = new ArrayList<>();
 
         if (existingRegistrationOptional.isPresent()) {
             Registration existingRegistration = existingRegistrationOptional.get();
             existingRegistration.setid(registration.getid());
             existingRegistration.setEventID(registration.getEventID());
-            RegistrationRepository.save(existingRegistration);
+            registrationRepository.save(existingRegistration);
             result.add(existingRegistration);
         }
 
@@ -102,9 +98,9 @@ public class RegistrationController {
     @DeleteMapping("/{id}")
     public List<Registration> deleteClientLogin(@PathVariable("id") String id) {
         List<Registration> result = new ArrayList<>();
-        Optional<Registration> registrationOptional = RegistrationRepository.findById(id);
+        Optional<Registration> registrationOptional = registrationRepository.findById(id);
         if (registrationOptional.isPresent()) {
-            RegistrationRepository.deleteById(id);
+            registrationRepository.deleteById(id);
             result.add(registrationOptional.get());
         }
         return result;

@@ -12,6 +12,7 @@ public class Registration {
     private String eventID;
 
 
+
     @Column(name = "id")
     private String id;
 
