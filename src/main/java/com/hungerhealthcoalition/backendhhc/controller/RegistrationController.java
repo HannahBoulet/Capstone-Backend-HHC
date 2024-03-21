@@ -37,7 +37,7 @@ public class RegistrationController {
      */
     @GetMapping("/{id}")
     public List<Registration> getClientbyID(@PathVariable("id") String id) {
-        Optional<Registration> RegistrationOptional = registrationRepository.findById(id);
+        Optional<Registration> RegistrationOptional = registrationRepository.findRegistrationById(id);
         List<Registration> result = new ArrayList<>();
 
         RegistrationOptional.ifPresent(result::add);
@@ -45,14 +45,14 @@ public class RegistrationController {
     }
 
 
-//    @GetMapping("/eventID/{eventId}")
-//    public List<Registration> getClientbyEventID(@PathVariable("eventID") String eventID) {
-//        Optional<Registration> RegistrationOptional = registrationRepository.findById(eventID);
-//        List<Registration> result = new ArrayList<>();
-//
-//        RegistrationOptional.ifPresent(result::add);
-//        return result;
-//    }
+    @GetMapping("/eventID/{eventId}")
+    public List<Registration> getClientbyEventID(@PathVariable("eventId") String eventId) {
+        Optional<Registration> RegistrationOptional = registrationRepository.findRegistrationByEventID(eventId);
+        List<Registration> result = new ArrayList<>();
+
+        RegistrationOptional.ifPresent(result::add);
+        return result;
+    }
 
     /**
      * Add's a new client login to the Login table

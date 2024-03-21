@@ -8,6 +8,11 @@ import jakarta.persistence.*;
 public class Registration {
 
     @Id
+    @GeneratedValue
+    @Column(name = "registrationID")
+    private int registrationID;
+
+
     @Column(name = "eventID")
     private String eventID;
 
@@ -42,7 +47,13 @@ public class Registration {
         this.eventID = eventID;
     }
 
+    public int getRegistrationID() {
+        return registrationID;
+    }
 
+    public void setRegistrationID(int registrationID) {
+        this.registrationID = registrationID;
+    }
 
 }
 
