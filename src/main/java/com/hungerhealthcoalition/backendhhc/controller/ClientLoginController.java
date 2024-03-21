@@ -56,7 +56,7 @@ public class ClientLoginController {
     }
 
     /**
-     * Updates an exisiting clients Login
+     * Updates an existing clients Login
      *
      * @param id          the id of the client login to update
      * @param clientLogin the object which is being updated with updated client information
