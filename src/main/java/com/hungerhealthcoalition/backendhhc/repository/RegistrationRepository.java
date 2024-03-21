@@ -11,4 +11,9 @@ import java.util.Optional;
 public interface RegistrationRepository extends JpaRepository<Registration, String> {
 public Optional<Registration> findRegistrationById(String id);
     public Optional<Registration> findRegistrationByEventID(String eventID);
+
+    public Optional<Registration> findRegistrationByIdAndEventID(String id, String eventID);
+    public void deleteRegistrationByIdAndEventID(String id, String eventID);
+
+    public void deleteRegistrationByEventID(String eventID);
 }

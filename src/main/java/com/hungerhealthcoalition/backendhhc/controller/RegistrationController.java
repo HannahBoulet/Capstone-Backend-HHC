@@ -3,6 +3,8 @@ package com.hungerhealthcoalition.backendhhc.controller;
 
 import com.hungerhealthcoalition.backendhhc.model.Registration;
 import com.hungerhealthcoalition.backendhhc.repository.RegistrationRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class RegistrationController {
     /**
      * Retrieves all parings
      *
-     * @return List of all Client Logins
+     * @return List of all parings
      */
     @GetMapping
     public List<Registration> getAllPairings() {
@@ -30,13 +32,13 @@ public class RegistrationController {
     }
 
     /**
-     * Retrieves client by ID
+     * Retrieves a list of parings of the given ID
      *
-     * @param id the id of the client login.
+     * @param id the id of the event.
      * @return specified client
      */
     @GetMapping("/{id}")
-    public List<Registration> getClientbyID(@PathVariable("id") String id) {
+    public List<Registration> getPairingByID(@PathVariable("id") String id) {
         Optional<Registration> RegistrationOptional = registrationRepository.findRegistrationById(id);
         List<Registration> result = new ArrayList<>();
 
@@ -45,14 +47,14 @@ public class RegistrationController {
     }
 
     /**
-     * Retrieves client by eventId
+     * Retrieves list of client's by eventID
      *
-     * @param eventId the id of the client login.
+     * @param eventID the id of the event.
      * @return specified client
      */
-    @GetMapping("/eventID/{eventId}")
-    public List<Registration> getClientbyEventID(@PathVariable("eventId") String eventId) {
-        Optional<Registration> RegistrationOptional = registrationRepository.findRegistrationByEventID(eventId);
+    @GetMapping("/eventID/{eventID}")
+    public List<Registration> getParingByEventID(@PathVariable("eventID") String eventID) {
+        Optional<Registration> RegistrationOptional = registrationRepository.findRegistrationByEventID(eventID);
         List<Registration> result = new ArrayList<>();
 
         RegistrationOptional.ifPresent(result::add);
@@ -60,32 +62,41 @@ public class RegistrationController {
     }
 
     /**
-     * Add's a new pairing to the Registration table
+     * Adds a new pairing to the Registration table
      *
      * @param registration the new registration data to be added
      * @return the new registration data
      */
     @PostMapping
-    public Registration addClientLogin(@RequestBody Registration registration) {
-        registrationRepository.save(registration);
-        return registration;
+    public Registration addPairing(@RequestBody Registration registration) {
+        Optional<Registration>  existingRegistration = registrationRepository.findRegistrationByIdAndEventID(registration.getId(), registration.getEventID());
+        if (existingRegistration.isPresent()) {
+            //throw new DuplicateRegistrationException("Registration with eventID and id already exists");
+            Registration duplicateRegistration = new Registration();
+            duplicateRegistration.setRegistrationID(-1);
+            duplicateRegistration.setEventID("-1");
+            duplicateRegistration.setId("-1");
+            return duplicateRegistration;
+        }
+        return registrationRepository.save(registration);
     }
 
     /**
-     * Updates an exisiting clients Login
+     * Updates an existing Pairing
      *
-     * @param id          the id of the client to update
+     * @param id          the id of the paring to update
+     * @param eventID          the eventID of the paring to update
      * @param registration the object which is being updated with updated pairing information
      * @return the updated clients login information
      */
-    @PutMapping("/{id}")
-    public List<Registration> updateRegistration(@PathVariable("id") String id, @RequestBody Registration registration) {
-        Optional<Registration> existingRegistrationOptional = registrationRepository.findById(id);
+    @PutMapping("/{id}/{eventID}")
+    public List<Registration> updateRegistration(@PathVariable("id") String id, @PathVariable("eventID") String eventID,  @RequestBody Registration registration) {
+        Optional<Registration> existingRegistrationOptional = registrationRepository.findRegistrationByIdAndEventID(id,eventID);
         List<Registration> result = new ArrayList<>();
 
         if (existingRegistrationOptional.isPresent()) {
             Registration existingRegistration = existingRegistrationOptional.get();
-            existingRegistration.setid(registration.getid());
+            existingRegistration.setId(registration.getId());
             existingRegistration.setEventID(registration.getEventID());
             registrationRepository.save(existingRegistration);
             result.add(existingRegistration);
@@ -96,19 +107,51 @@ public class RegistrationController {
 
     /**
      * Deletes a pairing object by ID
-//     *
-     * @param id the id of the client login to delete
-     * @return list containing the deleted login otherwise and empty list
+     *
+     * @param id the id of the paring to delete
+     * @param eventID the eventID of the paring to delete
+     * @return list containing the deleted paring otherwise and empty list
      */
-    @DeleteMapping("/{id}")
-    public List<Registration> deleteClientLogin(@PathVariable("id") String id) {
-        List<Registration> result = new ArrayList<>();
-        Optional<Registration> registrationOptional = registrationRepository.findById(id);
-        if (registrationOptional.isPresent()) {
-            registrationRepository.deleteById(id);
-            result.add(registrationOptional.get());
-        }
-        return result;
+    @DeleteMapping("/{id}/{eventID}")
+    @Transactional
+    public ResponseEntity<Void> deletePairingByIdAndEventID(@PathVariable("id") String id, @PathVariable("eventID") String eventID) {
+        registrationRepository.deleteRegistrationByIdAndEventID(id, eventID);
+
+        return ResponseEntity.noContent().build();
     }
+//    @DeleteMapping("/{id}/{eventID}")
+//    public List<Registration> deletePairingByIdAndEventID(@PathVariable("id") String id, @PathVariable("eventID") String eventID) {
+//        List<Registration> result = new ArrayList<>();
+//        Optional<Registration> registrationOptional = registrationRepository.findRegistrationByIdAndEventID(id,eventID);
+//        if (registrationOptional.isPresent()) {
+//            registrationRepository.deleteRegistrationByIdAndEventID(id, eventID);
+//            result.add(registrationOptional.get());
+//        }
+//        return result;
+//    }
+
+
+    /**
+     * Deletes all pairing with the eventID
+     * @param eventID the eventID of the paring to delete
+     * @return list containing the deleted paring otherwise and empty list
+     */
+    @DeleteMapping("/{eventID}")
+    @Transactional
+    public ResponseEntity<Void> deletePairingByEventID(@PathVariable("eventID") String eventID) {
+            registrationRepository.deleteRegistrationByEventID(eventID);
+
+        return ResponseEntity.noContent().build();
+    }
+//    @DeleteMapping("/{eventID}")
+//    public List<Registration> deletePairingByEventID(@PathVariable("eventID") String eventID) {
+//        List<Registration> result = new ArrayList<>();
+//        Optional<Registration> registrationOptional = registrationRepository.findRegistrationByEventID(eventID);
+//        if (registrationOptional.isPresent()) {
+//            registrationRepository.deleteRegistrationByEventID(eventID);
+//            result.add(registrationOptional.get());
+//        }
+//        return result;
+//    }
 
 }
