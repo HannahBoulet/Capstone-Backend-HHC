@@ -2,12 +2,14 @@ package com.hungerhealthcoalition.backendhhc.controller;
 
 
 import com.hungerhealthcoalition.backendhhc.model.ClientInfo;
+import com.hungerhealthcoalition.backendhhc.model.ClientLogin;
 import com.hungerhealthcoalition.backendhhc.repository.ClientInfoRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/Info")

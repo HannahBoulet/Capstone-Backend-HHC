@@ -1,10 +1,7 @@
 package com.hungerhealthcoalition.backendhhc.model;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "ClientInfo")
@@ -12,6 +9,7 @@ public class ClientInfo {
 
     //this will later be a foreign key to connect to the client login id
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increment primary key
     @Column(name = "id")
     private String clientID;
 
