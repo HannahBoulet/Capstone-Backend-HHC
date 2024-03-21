@@ -94,6 +94,8 @@ public class ClientInfoController {
             existingClient.setGoalType(clientInfo.getGoalType());
             existingClient.setGoalTarget(clientInfo.getGoalTarget());
             existingClient.setCurrentGoal(clientInfo.getCurrentGoal());
+            clientInfoRepository.save(existingClient);
+            result.add(existingClient);
         }
 
         return result;

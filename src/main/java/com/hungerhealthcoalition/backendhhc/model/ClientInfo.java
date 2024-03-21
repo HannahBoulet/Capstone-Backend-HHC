@@ -15,7 +15,6 @@ public class ClientInfo {
     @Column(name = "id")
     private String clientID;
 
-    @Id
     @Column(name = "password")
     private  String password;
 
