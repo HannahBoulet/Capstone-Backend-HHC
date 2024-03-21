@@ -13,8 +13,10 @@ public class ClientInfo {
     @Column(name = "id")
     private String clientID;
 
+    @Column(name = "userName")
+    private String userName;
     @Column(name = "password")
-    private  String password;
+    private String password;
 
     @Column(name = "clientFirst")
     private String clientFirst;
@@ -45,6 +47,14 @@ public class ClientInfo {
 
     public void setClientID(String clientID) {
         this.clientID = clientID;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getClientFirst() {
