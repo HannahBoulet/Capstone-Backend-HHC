@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/Logins")
+@RequestMapping("/api/Events")
 public class EventsController {
     private EventsRepository eventsRepository;
 
