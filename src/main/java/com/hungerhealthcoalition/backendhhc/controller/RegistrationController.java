@@ -20,7 +20,7 @@ public class RegistrationController {
     }
 
     /**
-     * Retrieves all Client Logins
+     * Retrieves all parings
      *
      * @return List of all Client Logins
      */
@@ -44,7 +44,12 @@ public class RegistrationController {
         return result;
     }
 
-
+    /**
+     * Retrieves client by eventId
+     *
+     * @param eventId the id of the client login.
+     * @return specified client
+     */
     @GetMapping("/eventID/{eventId}")
     public List<Registration> getClientbyEventID(@PathVariable("eventId") String eventId) {
         Optional<Registration> RegistrationOptional = registrationRepository.findRegistrationByEventID(eventId);
@@ -55,7 +60,7 @@ public class RegistrationController {
     }
 
     /**
-     * Add's a new client login to the Login table
+     * Add's a new pairing to the Registration table
      *
      * @param registration the new registration data to be added
      * @return the new registration data
@@ -70,7 +75,7 @@ public class RegistrationController {
      * Updates an exisiting clients Login
      *
      * @param id          the id of the client to update
-     * @param registration the object which is being updated with updated client information
+     * @param registration the object which is being updated with updated pairing information
      * @return the updated clients login information
      */
     @PutMapping("/{id}")
@@ -90,7 +95,7 @@ public class RegistrationController {
     }
 
     /**
-     * Deletes a client login object by ID
+     * Deletes a pairing object by ID
 //     *
      * @param id the id of the client login to delete
      * @return list containing the deleted login otherwise and empty list
