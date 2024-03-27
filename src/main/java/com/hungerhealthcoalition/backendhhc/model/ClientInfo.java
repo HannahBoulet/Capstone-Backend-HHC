@@ -11,7 +11,7 @@ public class ClientInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increment primary key
     @Column(name = "id")
-    private String clientID;
+    private int clientID;
 
     @Column(name = "userName")
     private String userName;
@@ -41,11 +41,11 @@ public class ClientInfo {
     @Column(name = "currentGoal")
     private int currentGoal;
 
-    public String getClientID() {
+    public int getClientID() {
         return clientID;
     }
 
-    public void setClientID(String clientID) {
+    public void setClientID(int clientID) {
         this.clientID = clientID;
     }
 
