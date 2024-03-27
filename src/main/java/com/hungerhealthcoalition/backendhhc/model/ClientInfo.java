@@ -1,6 +1,7 @@
 package com.hungerhealthcoalition.backendhhc.model;
 
 
+import com.hungerhealthcoalition.backendhhc.util.PasswordHashing;
 import jakarta.persistence.*;
 
 @Entity
@@ -126,6 +127,7 @@ public class ClientInfo {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        PasswordHashing pw = new PasswordHashing(password);
+        this.password = pw.getPassword();
     }
 }
