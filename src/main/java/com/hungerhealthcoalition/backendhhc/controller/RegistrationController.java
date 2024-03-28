@@ -39,10 +39,7 @@ public class RegistrationController {
      */
     @GetMapping("/{id}")
     public List<Registration> getPairingByID(@PathVariable("id") int id) {
-        Optional<Registration> RegistrationOptional = registrationRepository.findRegistrationByClientInfoClientID(id);
-        List<Registration> result = new ArrayList<>();
-
-        RegistrationOptional.ifPresent(result::add);
+        List<Registration> result = registrationRepository.findRegistrationByClientInfoClientID(id);
         return result;
     }
 
@@ -54,11 +51,7 @@ public class RegistrationController {
      */
     @GetMapping("/eventID/{eventID}")
     public List<Registration> getParingByEventID(@PathVariable("eventID") int eventID) {
-        Optional<Registration> RegistrationOptional = registrationRepository.findRegistrationByEventsEventId(eventID);
-        List<Registration> result = new ArrayList<>();
-
-        RegistrationOptional.ifPresent(result::add);
-        return result;
+        return registrationRepository.findRegistrationByEventsEventId(eventID);
     }
 
     /**
