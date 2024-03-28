@@ -38,7 +38,7 @@ public class RegistrationController {
      * @return specified client
      */
     @GetMapping("/{id}")
-    public List<Registration> getPairingByID(@PathVariable("id") String id) {
+    public List<Registration> getPairingByID(@PathVariable("id") int id) {
         Optional<Registration> RegistrationOptional = registrationRepository.findRegistrationById(id);
         List<Registration> result = new ArrayList<>();
 
@@ -53,7 +53,7 @@ public class RegistrationController {
      * @return specified client
      */
     @GetMapping("/eventID/{eventID}")
-    public List<Registration> getParingByEventID(@PathVariable("eventID") String eventID) {
+    public List<Registration> getParingByEventID(@PathVariable("eventID") int eventID) {
         Optional<Registration> RegistrationOptional = registrationRepository.findRegistrationByEventID(eventID);
         List<Registration> result = new ArrayList<>();
 
@@ -74,8 +74,8 @@ public class RegistrationController {
             //throw new DuplicateRegistrationException("Registration with eventID and id already exists");
             Registration duplicateRegistration = new Registration();
             duplicateRegistration.setRegistrationID(-1);
-            duplicateRegistration.setEventID("-1");
-            duplicateRegistration.setId("-1");
+            duplicateRegistration.setEventID(-1);
+            duplicateRegistration.setId(-1);
             return duplicateRegistration;
         }
         return registrationRepository.save(registration);
@@ -90,7 +90,7 @@ public class RegistrationController {
      * @return the updated clients login information
      */
     @PutMapping("/{id}/{eventID}")
-    public List<Registration> updateRegistration(@PathVariable("id") String id, @PathVariable("eventID") String eventID,  @RequestBody Registration registration) {
+    public List<Registration> updateRegistration(@PathVariable("id") int id, @PathVariable("eventID") int eventID,  @RequestBody Registration registration) {
         Optional<Registration> existingRegistrationOptional = registrationRepository.findRegistrationByIdAndEventID(id,eventID);
         List<Registration> result = new ArrayList<>();
 
@@ -114,7 +114,7 @@ public class RegistrationController {
      */
     @DeleteMapping("/{id}/{eventID}")
     @Transactional
-    public ResponseEntity<Void> deletePairingByIdAndEventID(@PathVariable("id") String id, @PathVariable("eventID") String eventID) {
+    public ResponseEntity<Void> deletePairingByIdAndEventID(@PathVariable("id") int id, @PathVariable("eventID") int eventID) {
         registrationRepository.deleteRegistrationByIdAndEventID(id, eventID);
 
         return ResponseEntity.noContent().build();
@@ -138,7 +138,7 @@ public class RegistrationController {
      */
     @DeleteMapping("/{eventID}")
     @Transactional
-    public ResponseEntity<Void> deletePairingByEventID(@PathVariable("eventID") String eventID) {
+    public ResponseEntity<Void> deletePairingByEventID(@PathVariable("eventID") int eventID) {
             registrationRepository.deleteRegistrationByEventID(eventID);
 
         return ResponseEntity.noContent().build();

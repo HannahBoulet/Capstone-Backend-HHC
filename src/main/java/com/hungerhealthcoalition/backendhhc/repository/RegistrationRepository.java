@@ -9,11 +9,11 @@ import java.util.Optional;
 
 @Repository
 public interface RegistrationRepository extends JpaRepository<Registration, String> {
-public Optional<Registration> findRegistrationById(String id);
-    public Optional<Registration> findRegistrationByEventID(String eventID);
+public Optional<Registration> findRegistrationById(int id);
+    public Optional<Registration> findRegistrationByEventID(int eventID);
 
-    public Optional<Registration> findRegistrationByIdAndEventID(String id, String eventID);
-    public void deleteRegistrationByIdAndEventID(String id, String eventID);
+    public Optional<Registration> findRegistrationByIdAndEventID(int id, int eventID);
+    public void deleteRegistrationByIdAndEventID(int id, int eventID);
 
-    public void deleteRegistrationByEventID(String eventID);
+    public void deleteRegistrationByEventID(int eventID);
 }

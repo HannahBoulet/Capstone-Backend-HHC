@@ -14,12 +14,12 @@ public class Registration {
 
 
     @Column(name = "eventID")
-    private String eventID;
+    private int eventID;
 
 
 
     @Column(name = "id")
-    private String id;
+    private int id;
 
 //    @ManyToOne
 //    @JoinColumn(name = "id", referencedColumnName = "id")
@@ -31,19 +31,19 @@ public class Registration {
 
 
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getEventID() {
+    public int getEventID() {
         return eventID;
     }
 
-    public void setEventID(String eventID) {
+    public void setEventID(int eventID) {
         this.eventID = eventID;
     }
 
