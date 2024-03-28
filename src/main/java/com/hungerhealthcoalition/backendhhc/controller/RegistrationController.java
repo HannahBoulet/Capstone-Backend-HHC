@@ -39,7 +39,7 @@ public class RegistrationController {
      */
     @GetMapping("/{id}")
     public List<Registration> getPairingByID(@PathVariable("id") int id) {
-        Optional<Registration> RegistrationOptional = registrationRepository.findRegistrationById(id);
+        Optional<Registration> RegistrationOptional = registrationRepository.findRegistrationByClientInfoClientID(id);
         List<Registration> result = new ArrayList<>();
 
         RegistrationOptional.ifPresent(result::add);
@@ -54,7 +54,7 @@ public class RegistrationController {
      */
     @GetMapping("/eventID/{eventID}")
     public List<Registration> getParingByEventID(@PathVariable("eventID") int eventID) {
-        Optional<Registration> RegistrationOptional = registrationRepository.findRegistrationByEventID(eventID);
+        Optional<Registration> RegistrationOptional = registrationRepository.findRegistrationByEventsEventId(eventID);
         List<Registration> result = new ArrayList<>();
 
         RegistrationOptional.ifPresent(result::add);
@@ -69,35 +69,50 @@ public class RegistrationController {
      */
     @PostMapping
     public Registration addPairing(@RequestBody Registration registration) {
-        Optional<Registration>  existingRegistration = registrationRepository.findRegistrationByIdAndEventID(registration.getId(), registration.getEventID());
+        // Validate client existence first
+//        if (!registrationRepository.existsByClientInfoClientID(registration.getClientInfo().getClientID())) {
+//            throw new RuntimeException("Client with ID " + registration.getClientInfo().getClientID() + " not found");
+//        }
+
+        // Check for duplicate registration based on clientInfo and eventID
+        Optional<Registration> existingRegistration = registrationRepository.findRegistrationByClientInfoClientIDAndEventsEventId(
+                registration.getClientInfo().getClientID(), registration.getEvents().getEventId());
+
         if (existingRegistration.isPresent()) {
-            //throw new DuplicateRegistrationException("Registration with eventID and id already exists");
-            Registration duplicateRegistration = new Registration();
-            duplicateRegistration.setRegistrationID(-1);
-            duplicateRegistration.setEventID(-1);
-            duplicateRegistration.setId(-1);
-            return duplicateRegistration;
+            // Throw a meaningful exception for clarity
+            throw new RuntimeException("Registration with client ID " + registration.getClientInfo().getClientID() +
+                    " and eventID " + registration.getEvents().getEventId() + " already exists");
         }
+
+        // Persist the new registration
         return registrationRepository.save(registration);
     }
 
     /**
      * Updates an existing Pairing
      *
-     * @param id          the id of the paring to update
+     * @param clientId          the id of the paring to update
      * @param eventID          the eventID of the paring to update
      * @param registration the object which is being updated with updated pairing information
      * @return the updated clients login information
      */
     @PutMapping("/{id}/{eventID}")
-    public List<Registration> updateRegistration(@PathVariable("id") int id, @PathVariable("eventID") int eventID,  @RequestBody Registration registration) {
-        Optional<Registration> existingRegistrationOptional = registrationRepository.findRegistrationByIdAndEventID(id,eventID);
+    public List<Registration> updateRegistration(@PathVariable("id") int clientId, @PathVariable("eventID") int eventID, @RequestBody Registration registration) {
+        // Validate client existence first
+        if (!registrationRepository.existsByClientInfoClientID(clientId)) {
+            throw new RuntimeException("Client with ID " + clientId + " not found");
+        }
+
+        Optional<Registration> existingRegistrationOptional = registrationRepository.findRegistrationByClientInfoClientIDAndEventsEventId(clientId, eventID);
         List<Registration> result = new ArrayList<>();
 
         if (existingRegistrationOptional.isPresent()) {
             Registration existingRegistration = existingRegistrationOptional.get();
-            existingRegistration.setId(registration.getId());
-            existingRegistration.setEventID(registration.getEventID());
+
+            // Update relevant fields (except for clientInfo, as it's managed by the foreign key)
+            existingRegistration.setEvents(registration.getEvents());
+
+            // Persist the updated registration
             registrationRepository.save(existingRegistration);
             result.add(existingRegistration);
         }
@@ -115,20 +130,11 @@ public class RegistrationController {
     @DeleteMapping("/{id}/{eventID}")
     @Transactional
     public ResponseEntity<Void> deletePairingByIdAndEventID(@PathVariable("id") int id, @PathVariable("eventID") int eventID) {
-        registrationRepository.deleteRegistrationByIdAndEventID(id, eventID);
+        registrationRepository.deleteRegistrationByClientInfoClientIDAndEventsEventId(id, eventID);
 
         return ResponseEntity.noContent().build();
     }
-//    @DeleteMapping("/{id}/{eventID}")
-//    public List<Registration> deletePairingByIdAndEventID(@PathVariable("id") String id, @PathVariable("eventID") String eventID) {
-//        List<Registration> result = new ArrayList<>();
-//        Optional<Registration> registrationOptional = registrationRepository.findRegistrationByIdAndEventID(id,eventID);
-//        if (registrationOptional.isPresent()) {
-//            registrationRepository.deleteRegistrationByIdAndEventID(id, eventID);
-//            result.add(registrationOptional.get());
-//        }
-//        return result;
-//    }
+
 
 
     /**
@@ -139,19 +145,10 @@ public class RegistrationController {
     @DeleteMapping("/{eventID}")
     @Transactional
     public ResponseEntity<Void> deletePairingByEventID(@PathVariable("eventID") int eventID) {
-            registrationRepository.deleteRegistrationByEventID(eventID);
+            registrationRepository.deleteRegistrationByEventsEventId(eventID);
 
         return ResponseEntity.noContent().build();
     }
-//    @DeleteMapping("/{eventID}")
-//    public List<Registration> deletePairingByEventID(@PathVariable("eventID") String eventID) {
-//        List<Registration> result = new ArrayList<>();
-//        Optional<Registration> registrationOptional = registrationRepository.findRegistrationByEventID(eventID);
-//        if (registrationOptional.isPresent()) {
-//            registrationRepository.deleteRegistrationByEventID(eventID);
-//            result.add(registrationOptional.get());
-//        }
-//        return result;
-//    }
+
 
 }

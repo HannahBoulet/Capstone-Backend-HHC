@@ -13,38 +13,43 @@ public class Registration {
     private int registrationID;
 
 
-    @Column(name = "eventID")
-    private int eventID;
+//    @Column(name = "eventID")
+//    private int eventID;
 
 
 
-    @Column(name = "id")
-    private int id;
-
-//    @ManyToOne
-//    @JoinColumn(name = "id", referencedColumnName = "id")
-//    private ClientInfo clientInfo;
+//    @Column(name = "id")
+//    private int id;
 //
-//    @ManyToOne
-//    @JoinColumn(name = "eventID", referencedColumnName = "eventID")
-//    private Events events;
+    @ManyToOne
+    @JoinColumn(name = "id", referencedColumnName = "id")
+    private ClientInfo clientInfo;
+
+    @ManyToOne
+    @JoinColumn(name = "eventID", referencedColumnName = "eventID")
+    private Events events;
 
 
 
-    public int getId() {
-        return id;
+    public ClientInfo getClientInfo() {
+        return clientInfo;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setClientInfo(ClientInfo clientInfo) {
+        this.clientInfo = clientInfo;
     }
 
-    public int getEventID() {
-        return eventID;
+
+//    public void setId(int id) {
+//        this.id = id;
+//    }
+
+    public Events getEvents() {
+        return events;
     }
 
-    public void setEventID(int eventID) {
-        this.eventID = eventID;
+    public void setEvents(Events events) {
+        this.events = events;
     }
 
     public int getRegistrationID() {

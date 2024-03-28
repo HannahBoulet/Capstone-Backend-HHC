@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 public class Events {
     @Id
     @Column(name = "eventId")
-    private String eventId;
+    private int eventId;
 
     @Column(name = "eventName")
     private String eventName;
@@ -27,9 +27,9 @@ public class Events {
     @Column(name = "eventPicture")
     private String eventPicture;
 
-    private String getEventId(){ return eventId; }
+    public int getEventId(){ return eventId; }
 
-    private void setEventId(String eventId){ this.eventId = eventId; }
+    public void setEventId(int eventId){ this.eventId = eventId; }
 
     public String getEventName() { return eventName; }
 
