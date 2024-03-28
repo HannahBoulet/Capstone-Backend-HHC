@@ -69,17 +69,14 @@ public class RegistrationController {
      */
     @PostMapping
     public Registration addPairing(@RequestBody Registration registration) {
-        // Validate client existence first
-//        if (!registrationRepository.existsByClientInfoClientID(registration.getClientInfo().getClientID())) {
-//            throw new RuntimeException("Client with ID " + registration.getClientInfo().getClientID() + " not found");
-//        }
+
 
         // Check for duplicate registration based on clientInfo and eventID
         Optional<Registration> existingRegistration = registrationRepository.findRegistrationByClientInfoClientIDAndEventsEventId(
                 registration.getClientInfo().getClientID(), registration.getEvents().getEventId());
 
         if (existingRegistration.isPresent()) {
-            // Throw a meaningful exception for clarity
+            // Throw an exception for clarity
             throw new RuntimeException("Registration with client ID " + registration.getClientInfo().getClientID() +
                     " and eventID " + registration.getEvents().getEventId() + " already exists");
         }
@@ -109,10 +106,7 @@ public class RegistrationController {
         if (existingRegistrationOptional.isPresent()) {
             Registration existingRegistration = existingRegistrationOptional.get();
 
-            // Update relevant fields (except for clientInfo, as it's managed by the foreign key)
             existingRegistration.setEvents(registration.getEvents());
-
-            // Persist the updated registration
             registrationRepository.save(existingRegistration);
             result.add(existingRegistration);
         }
