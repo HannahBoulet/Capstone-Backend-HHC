@@ -31,15 +31,6 @@ public class ClientInfo {
 
     @Column(name = "clientPicture")
     private String clientPicture;
-    //questioning these 3 still
-    @Column(name = "goalType")
-    private String goalType;
-
-    @Column(name = "goalTarget")
-    private int goalTarget;
-
-    @Column(name = "currentGoal")
-    private int currentGoal;
 
     public int getClientID() {
         return clientID;
@@ -95,30 +86,6 @@ public class ClientInfo {
 
     public void setClientPicture(String clientPicture) {
         this.clientPicture = clientPicture;
-    }
-
-    public int getGoalTarget() {
-        return goalTarget;
-    }
-
-    public void setGoalTarget(int goalTarget) {
-        this.goalTarget = goalTarget;
-    }
-
-    public String getGoalType() {
-        return goalType;
-    }
-
-    public void setGoalType(String goalType) {
-        this.goalType = goalType;
-    }
-
-    public int getCurrentGoal() {
-        return currentGoal;
-    }
-
-    public void setCurrentGoal(int currentGoal) {
-        this.currentGoal = currentGoal;
     }
 
     public String getPassword() {

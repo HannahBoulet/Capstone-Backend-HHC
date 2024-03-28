@@ -92,9 +92,6 @@ public class ClientInfoController {
             existingClient.setFoodBox(clientInfo.getFoodBox());
             existingClient.setMedications(clientInfo.getMedications());
             existingClient.setClientPicture(clientInfo.getClientPicture());
-            existingClient.setGoalType(clientInfo.getGoalType());
-            existingClient.setGoalTarget(clientInfo.getGoalTarget());
-            existingClient.setCurrentGoal(clientInfo.getCurrentGoal());
             clientInfoRepository.save(existingClient);
             result.add(existingClient);
         }
