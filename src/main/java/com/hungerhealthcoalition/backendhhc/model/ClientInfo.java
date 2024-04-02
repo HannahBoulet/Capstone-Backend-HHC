@@ -33,6 +33,9 @@ public class ClientInfo {
     @Column(name = "clientPicture")
     private String clientPicture;
 
+    @Column(name = "admin")
+    private boolean admin;
+
     public int getClientID() {
         return clientID;
     }
@@ -97,4 +100,8 @@ public class ClientInfo {
         PasswordHashing pw = new PasswordHashing(password);
         this.password = pw.getPassword();
     }
+
+    public boolean getAdmin() { return admin; }
+
+    public void setAdmin(boolean admin) { this.admin = admin; }
 }
