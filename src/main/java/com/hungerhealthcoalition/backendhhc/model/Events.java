@@ -18,6 +18,9 @@ public class Events {
     @Column(name = "eventDate")
     private String eventDate;
 
+    @Column(name = "eventAddress")
+    private String eventAddress;
+
     @Column(name = "eventDescription")
     private String eventDescription;
 
@@ -38,6 +41,10 @@ public class Events {
     public String getEventDate() { return eventDate; }
 
     public void setEventDate(String eventDate) { this.eventDate = eventDate; }
+
+    public String getEventAddress() { return eventAddress; }
+
+    public void setEventAddress(String eventAddress) { this.eventAddress = eventAddress; }
 
     public String getEventDescription() { return eventDescription; }
 
