@@ -92,6 +92,7 @@ public class ClientInfoController {
             existingClient.setFoodBox(clientInfo.getFoodBox());
             existingClient.setMedications(clientInfo.getMedications());
             existingClient.setClientPicture(clientInfo.getClientPicture());
+            existingClient.setAdmin(clientInfo.getAdmin());
             clientInfoRepository.save(existingClient);
             result.add(existingClient);
         }
