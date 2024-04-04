@@ -67,6 +67,7 @@ public class EventsController {
         if(existingEventsOptional.isPresent()){
             Events existingEvents = existingEventsOptional.get();
             existingEvents.setEventDate(events.getEventDate());
+            existingEvents.setEventAddress(events.getEventAddress());
             existingEvents.setEventLimit(events.getEventLimit());
             existingEvents.setEventDescription(events.getEventDescription());
             existingEvents.setEventName(events.getEventName());
