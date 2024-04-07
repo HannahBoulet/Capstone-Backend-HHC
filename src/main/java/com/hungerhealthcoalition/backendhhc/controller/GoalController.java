@@ -61,11 +61,11 @@ public class GoalController {
         return result;
     }
 
-    @DeleteMapping("/{id}/{clientID}")
-    @Transactional
-    public ResponseEntity<Void> deletePairingByIdandClientID(@PathVariable("id") String id, @PathVariable("clientID") String clientID) {
-        goalsRepository.deleteGoalsbyIdandClientID(id, clientID);
-        return  ResponseEntity.noContent().build();
-    }
+//    @DeleteMapping("/{id}/{clientID}")
+//    @Transactional
+//    public ResponseEntity<Void> deletePairingByIdandClientID(@PathVariable("id") int id, @PathVariable("clientID") int clientID) {
+//        goalsRepository.deleteGoalsbyIdandClientInfoClientID(id, clientID);
+//        return  ResponseEntity.noContent().build();
+//    }
 
 }
