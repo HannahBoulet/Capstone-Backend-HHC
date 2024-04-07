@@ -4,6 +4,7 @@ package com.hungerhealthcoalition.backendhhc.controller;
 import com.hungerhealthcoalition.backendhhc.model.Goals;
 import com.hungerhealthcoalition.backendhhc.repository.GoalsRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,11 +62,15 @@ public class GoalController {
         return result;
     }
 
-//    @DeleteMapping("/{id}/{clientID}")
-//    @Transactional
-//    public ResponseEntity<Void> deletePairingByIdandClientID(@PathVariable("id") int id, @PathVariable("clientID") int clientID) {
-//        goalsRepository.deleteGoalsbyIdandClientInfoClientID(id, clientID);
-//        return  ResponseEntity.noContent().build();
-//    }
+    @DeleteMapping("/{clientId}/{goalId}")
+    public ResponseEntity<String> deleteGoal(@PathVariable("clientId") int clientId, @PathVariable("goalId") String goalId) {
+        Optional<Goals> optionalGoal = goalsRepository.findById(goalId);
+        if (optionalGoal.isPresent() && optionalGoal.get().getClientID() == clientId) {
+            goalsRepository.deleteById(goalId);
+            return new ResponseEntity<>("Goal deleted successfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Goal not found or does not belong to the specified client", HttpStatus.NOT_FOUND);
+        }
+    }
 
 }

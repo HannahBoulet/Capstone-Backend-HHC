@@ -9,6 +9,5 @@ import java.util.List;
 
 @Repository
 public interface GoalsRepository extends JpaRepository<Goals, String> {
-//    public void deleteGoalsbyIdandClientInfoClientID(int id, int eventID);
 
 }
