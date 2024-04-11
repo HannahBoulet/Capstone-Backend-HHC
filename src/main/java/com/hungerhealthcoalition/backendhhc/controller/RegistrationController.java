@@ -54,6 +54,19 @@ public class RegistrationController {
         return registrationRepository.findRegistrationByEventsEventId(eventID);
     }
 
+
+    /**
+     * Retrieves count of client's by eventID
+     *
+     * @param eventID the id of the event.
+     * @return number of registrations for the event
+     */
+    @GetMapping("/count/{eventID}")
+    public int countByEventID(@PathVariable("eventID") int eventID) {
+        return registrationRepository.findRegistrationByEventsEventId(eventID).size();
+    }
+
+
     /**
      * Adds a new pairing to the Registration table
      *
