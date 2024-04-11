@@ -59,7 +59,7 @@ public class RegistrationController {
      * Retrieves count of client's by eventID
      *
      * @param eventID the id of the event.
-     * @return number of registrations for the event
+     * @return number of registrations for the event by eventID
      */
     @GetMapping("/count/{eventID}")
     public int countByEventID(@PathVariable("eventID") int eventID) {
