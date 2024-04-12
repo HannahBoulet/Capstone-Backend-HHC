@@ -1,10 +1,10 @@
 package com.hungerhealthcoalition.backendhhc.controller;
 
 
+import com.hungerhealthcoalition.backendhhc.model.ClientInfo;
 import com.hungerhealthcoalition.backendhhc.model.Goals;
 import com.hungerhealthcoalition.backendhhc.repository.GoalsRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,12 +27,14 @@ public class GoalController {
     }
 
 
-    @GetMapping("/{clientID}")
-    public List<Goals> getClientsGoal(@PathVariable("clientID") String id) {
-        Optional<Goals> optionalGoals = goalsRepository.findById(id);
-        List<Goals> result = new ArrayList<>();
-        optionalGoals.ifPresent(result::add);
-        return result;
+    @GetMapping("/{id}")
+    public List<Goals> getClientGoalsbyID(@PathVariable("id") ClientInfo id) {
+        return goalsRepository.findGoalsByClientID(id);
+    }
+
+    @GetMapping("/{id}/{goalName}")
+    public Optional<Goals> getClientGoalByIDandName(@PathVariable("id") ClientInfo id, @PathVariable("goalName") String goalName) {
+        return goalsRepository.findGoalsByClientIDAndGoalName(id, goalName);
     }
 
     @PostMapping
@@ -41,36 +43,39 @@ public class GoalController {
         return goals;
     }
 
-    @PutMapping("/{id}")
-    public List<Goals> updateGoal(@PathVariable("id") String id, @RequestBody Goals goals)
-    {
-        Optional<Goals> goalsOptional = goalsRepository.findById(id);
+    @PutMapping("/{id}/{goalName}")
+    public List<Goals> updateGoal(@PathVariable("id") ClientInfo id, @RequestBody Goals goals, @PathVariable("goalName") String goalName) {
+        if (!goalsRepository.existsGoalsByClientID(id)) {
+            throw new RuntimeException("Client with ID " + id + " not found");
+        }
+        Optional<Goals> exisitingGoalOptional = goalsRepository.findGoalsByClientIDAndGoalName(id, goalName);
         List<Goals> result = new ArrayList<>();
-
-        if(goalsOptional.isPresent())
-        {
-            Goals goals1 = goalsOptional.get();
-            goals1.setGoalDesc(goals.getGoalDesc());
-            goals1.setClientID(goals.getClientID());
-            goals1.setGoalName(goals.getGoalName());
-            goals1.setStartValue(goals.getStartValue());
-            goals1.setGoalValue(goals.getGoalValue());
-            goals1.setCurrentValue(goals.getCurrentValue());
-            goalsRepository.save(goals1);
-            result.add(goals1);
+        if (exisitingGoalOptional.isPresent()) {
+            Goals existingGoal = exisitingGoalOptional.get();
+            existingGoal.setGoalName(goals.getGoalName());
+            existingGoal.setGoalValue(goals.getGoalValue());
+            existingGoal.setStartValue(goals.getStartValue());
+            existingGoal.setCurrentValue(goals.getCurrentValue());
+            existingGoal.setGoalDesc(goals.getGoalDesc());
+            goalsRepository.save(existingGoal);
+            result.add(existingGoal);
         }
         return result;
+
     }
 
-    @DeleteMapping("/{clientId}/{goalId}")
-    public ResponseEntity<String> deleteGoal(@PathVariable("clientId") int clientId, @PathVariable("goalId") String goalId) {
-        Optional<Goals> optionalGoal = goalsRepository.findById(goalId);
-        if (optionalGoal.isPresent() && optionalGoal.get().getClientID() == clientId) {
-            goalsRepository.deleteById(goalId);
-            return new ResponseEntity<>("Goal deleted successfully", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Goal not found or does not belong to the specified client", HttpStatus.NOT_FOUND);
-        }
+    @DeleteMapping("/{id}/{goalId}")
+    @Transactional
+    public ResponseEntity<Goals> deleteGoalbyClientIDAndGoalID(@PathVariable("id") ClientInfo clientId, @PathVariable("goalId") String goalName) {
+        goalsRepository.deleteGoalsByClientIDAndGoalName(clientId, goalName);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}/")
+    @Transactional
+    public ResponseEntity<Goals> deleteAllGoalByClientID(@PathVariable("id") ClientInfo clientId) {
+        goalsRepository.deleteGoalsByClientID(clientId);
+        return ResponseEntity.noContent().build();
     }
 
 }

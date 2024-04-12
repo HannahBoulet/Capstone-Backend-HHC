@@ -7,11 +7,12 @@ import jakarta.persistence.*;
 public class Goals {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increment primary key
-    @Column(name = "id")
+    @Column(name = "goalId")
     private int goalId;
 
-    @Column(name = "clientID")
-    private int clientID;
+    @ManyToOne
+    @JoinColumn(name = "id", referencedColumnName = "id")
+    private ClientInfo clientID;
 
     @Column(name = "goalName")
     private String goalName;
@@ -38,11 +39,11 @@ public class Goals {
         this.goalId = goalId;
     }
 
-    public void setClientID(int clientID) {
+    public void setClientID(ClientInfo clientID) {
         this.clientID = clientID;
     }
 
-    public int getClientID() {
+    public ClientInfo getClientID() {
         return clientID;
     }
 
