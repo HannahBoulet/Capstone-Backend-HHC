@@ -28,27 +28,33 @@ public class GoalController {
 
 
     @GetMapping("/{id}")
-    public List<Goals> getClientGoalsbyID(@PathVariable("id") ClientInfo id) {
-        return goalsRepository.findGoalsByClientID(id);
+    public List<Goals> getClientGoalsbyID(@PathVariable("id") int id) {
+        return goalsRepository.findGoalsByClientInfoClientID(id);
     }
 
     @GetMapping("/{id}/{goalName}")
-    public Optional<Goals> getClientGoalByIDandName(@PathVariable("id") ClientInfo id, @PathVariable("goalName") String goalName) {
-        return goalsRepository.findGoalsByClientIDAndGoalName(id, goalName);
+    public Optional<Goals> getClientGoalByIDandName(@PathVariable("id") int id, @PathVariable("goalName") String goalName) {
+        return goalsRepository.findGoalsByClientInfoClientIDAndGoalName(id, goalName);
     }
 
     @PostMapping
     public Goals addGoal(@RequestBody Goals goals) {
+        Optional<Goals> exisitingGoal = goalsRepository.findGoalsByClientInfoClientIDAndGoalName(
+                goals.getClientInfo().getClientID(), goals.getGoalName()
+        );
+        if (exisitingGoal.isPresent()) {
+            throw new RuntimeException("Goal with that client Id" + goals.getClientInfo().getClientID() + " and goalName" + goals.getGoalName() + "already exists");
+        }
         goalsRepository.save(goals);
         return goals;
     }
 
     @PutMapping("/{id}/{goalName}")
-    public List<Goals> updateGoal(@PathVariable("id") ClientInfo id, @RequestBody Goals goals, @PathVariable("goalName") String goalName) {
-        if (!goalsRepository.existsGoalsByClientID(id)) {
+    public List<Goals> updateGoal(@PathVariable("id") int id, @RequestBody Goals goals, @PathVariable("goalName") String goalName) {
+        if (!goalsRepository.existsGoalsByClientInfoClientID(id)) {
             throw new RuntimeException("Client with ID " + id + " not found");
         }
-        Optional<Goals> exisitingGoalOptional = goalsRepository.findGoalsByClientIDAndGoalName(id, goalName);
+        Optional<Goals> exisitingGoalOptional = goalsRepository.findGoalsByClientInfoClientIDAndGoalName(id, goalName);
         List<Goals> result = new ArrayList<>();
         if (exisitingGoalOptional.isPresent()) {
             Goals existingGoal = exisitingGoalOptional.get();
@@ -66,15 +72,15 @@ public class GoalController {
 
     @DeleteMapping("/{id}/{goalName}")
     @Transactional
-    public ResponseEntity<Goals> deleteGoalbyClientIDAndGoalID(@PathVariable("id") ClientInfo clientId, @PathVariable("goalName") String goalName) {
-        goalsRepository.deleteGoalsByClientIDAndGoalName(clientId, goalName);
+    public ResponseEntity<Goals> deleteGoalbyClientIDAndGoalID(@PathVariable("id") int clientId, @PathVariable("goalName") String goalName) {
+        goalsRepository.deleteGoalsByClientInfoClientIDAndGoalName(clientId, goalName);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}/")
     @Transactional
-    public ResponseEntity<Goals> deleteAllGoalByClientID(@PathVariable("id") ClientInfo clientId) {
-        goalsRepository.deleteGoalsByClientID(clientId);
+    public ResponseEntity<Goals> deleteAllGoalByClientID(@PathVariable("id") int clientId) {
+        goalsRepository.deleteGoalsByClientInfoClientID(clientId);
         return ResponseEntity.noContent().build();
     }
 

@@ -11,19 +11,19 @@ import java.util.Optional;
 
 @Repository
 public interface GoalsRepository extends JpaRepository<Goals, String> {
-    public List<Goals> findGoalsByClientID(ClientInfo id);
+    public List<Goals> findGoalsByClientInfoClientID(int id);
 
-    public Optional<Goals> findGoalsByClientIDAndGoalName(ClientInfo id, String name);
+    public Optional<Goals> findGoalsByClientInfoClientIDAndGoalName(int id, String name);
 
 
     //delete all goals from a certain client
-    public void deleteGoalsByClientID(ClientInfo id);
+    public void deleteGoalsByClientInfoClientID(int id);
 
     //delete specific goal
-    public void deleteGoalsByClientIDAndGoalName(ClientInfo id, String name);
+    public void deleteGoalsByClientInfoClientIDAndGoalName(int id, String name);
 
 
-    public boolean existsGoalsByClientID(ClientInfo id);
+    public boolean existsGoalsByClientInfoClientID(int id);
 
 
 }

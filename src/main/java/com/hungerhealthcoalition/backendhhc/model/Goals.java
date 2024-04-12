@@ -12,7 +12,7 @@ public class Goals {
 
     @ManyToOne
     @JoinColumn(name = "id", referencedColumnName = "id")
-    private ClientInfo clientID;
+    private ClientInfo clientInfo;
 
     @Column(name = "goalName")
     private String goalName;
@@ -30,7 +30,6 @@ public class Goals {
     @Column(name = "goalDesc")
     private String goalDesc;
 
-
     public int getGoalId() {
         return goalId;
     }
@@ -39,12 +38,12 @@ public class Goals {
         this.goalId = goalId;
     }
 
-    public void setClientID(ClientInfo clientID) {
-        this.clientID = clientID;
+    public ClientInfo getClientInfo() {
+        return clientInfo;
     }
 
-    public ClientInfo getClientID() {
-        return clientID;
+    public void setClientInfo(ClientInfo clientInfo) {
+        this.clientInfo = clientInfo;
     }
 
     public String getGoalName() {
