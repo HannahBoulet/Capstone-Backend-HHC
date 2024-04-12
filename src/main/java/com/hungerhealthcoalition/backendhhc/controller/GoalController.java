@@ -64,7 +64,7 @@ public class GoalController {
 
     }
 
-    @DeleteMapping("/{id}/{goalId}")
+    @DeleteMapping("/{id}/{goalName}")
     @Transactional
     public ResponseEntity<Goals> deleteGoalbyClientIDAndGoalID(@PathVariable("id") ClientInfo clientId, @PathVariable("goalId") String goalName) {
         goalsRepository.deleteGoalsByClientIDAndGoalName(clientId, goalName);
