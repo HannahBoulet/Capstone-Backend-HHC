@@ -30,6 +30,12 @@ public class Events {
     @Column(name = "eventPicture")
     private String eventPicture;
 
+    @Column(name = "eventAdditionalPersonLimit")
+    private int eventAdditionalPersonLimit;
+
+    @Column(name = "eventAgeLimit")
+    private int eventAgeLimit;
+
     public int getEventId(){ return eventId; }
 
     public void setEventId(int eventId){ this.eventId = eventId; }
@@ -57,5 +63,13 @@ public class Events {
     public String getEventPicture() { return eventPicture; }
 
     public void setEventPicture(String eventPicture) { this.eventPicture = eventPicture; }
+
+    public int getEventAdditionalPersonLimit() { return eventAdditionalPersonLimit; }
+
+    public void setEventAdditionalPersonLimit(int eventAdditionalPersonLimit) { this.eventAdditionalPersonLimit = eventAdditionalPersonLimit; }
+
+    public int getEventAgeLimit() { return eventAgeLimit; }
+
+    public void setEventAgeLimit(int eventAgeLimit) { this.eventAgeLimit = eventAgeLimit; }
 
 }
