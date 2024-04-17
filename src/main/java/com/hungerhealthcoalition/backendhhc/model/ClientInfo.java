@@ -25,8 +25,17 @@ public class ClientInfo {
     @Column(name = "clientLast")
     private String clientLast;
 
-    @Column(name = "foodBox")
-    private Boolean foodBox;
+    @Column(name = "foodBox25")
+    private Boolean foodBox25;
+
+    @Column(name = "foodBox65")
+    private Boolean foodBox65;
+
+    @Column(name = "box25Date")
+    private String box25Date;
+
+    @Column(name = "box65Date")
+    private String box65Date;
     @Column(name = "medication")
     private Boolean medications;
 
@@ -68,13 +77,29 @@ public class ClientInfo {
         this.clientLast = clientLast;
     }
 
-    public Boolean getFoodBox() {
-        return foodBox;
+    public Boolean getFoodBox25() {
+        return foodBox25;
     }
 
-    public void setFoodBox(Boolean foodBox) {
-        this.foodBox = foodBox;
+    public void setFoodBox25(Boolean foodBox25) {
+        this.foodBox25 = foodBox25;
     }
+
+    public Boolean getFoodBox65() {
+        return foodBox65;
+    }
+
+    public void setFoodBox65(Boolean foodBox65) {
+        this.foodBox65 = foodBox65;
+    }
+
+    public String getBox25Date() { return box25Date; }
+
+    public void setBox25Date(String box25Date) { this.box25Date = box25Date; }
+
+    public String getBox65Date() { return box65Date; }
+
+    public void setBox65Date(String box65Date) { this.box65Date = box65Date; }
 
     public Boolean getMedications() {
         return medications;

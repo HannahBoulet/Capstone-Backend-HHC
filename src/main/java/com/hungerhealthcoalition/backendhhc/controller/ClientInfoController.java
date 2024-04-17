@@ -89,7 +89,10 @@ public class ClientInfoController {
             existingClient.setPassword(clientInfo.getPassword());
             existingClient.setClientFirst(clientInfo.getClientFirst());
             existingClient.setClientLast(clientInfo.getClientLast());
-            existingClient.setFoodBox(clientInfo.getFoodBox());
+            existingClient.setFoodBox25(clientInfo.getFoodBox25());
+            existingClient.setFoodBox65(clientInfo.getFoodBox65());
+            existingClient.setBox25Date(clientInfo.getBox25Date());
+            existingClient.setBox65Date(clientInfo.getBox65Date());
             existingClient.setMedications(clientInfo.getMedications());
             existingClient.setClientPicture(clientInfo.getClientPicture());
             existingClient.setAdmin(clientInfo.getAdmin());
