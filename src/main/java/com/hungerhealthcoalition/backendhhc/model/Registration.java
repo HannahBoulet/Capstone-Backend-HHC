@@ -8,19 +8,16 @@ import jakarta.persistence.*;
 public class Registration {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "registrationID")
     private int registrationID;
 
 
-//    @Column(name = "eventID")
-//    private int eventID;
+    @Column(name = "guestCount")
+    private int guestCount;
 
 
 
-//    @Column(name = "id")
-//    private int id;
-//
     @ManyToOne
     @JoinColumn(name = "id", referencedColumnName = "id")
     private ClientInfo clientInfo;
@@ -39,10 +36,12 @@ public class Registration {
         this.clientInfo = clientInfo;
     }
 
-
-//    public void setId(int id) {
-//        this.id = id;
-//    }
+    public int getGuestCount() {
+        return guestCount;
+    }
+    public void setGuestCount (int guestCount ) {
+        this.guestCount  = guestCount ;
+    }
 
     public Events getEvents() {
         return events;
