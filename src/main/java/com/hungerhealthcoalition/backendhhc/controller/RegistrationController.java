@@ -63,7 +63,12 @@ public class RegistrationController {
      */
     @GetMapping("/count/{eventID}")
     public int countByEventID(@PathVariable("eventID") int eventID) {
-        return registrationRepository.findRegistrationByEventsEventId(eventID).size();
+        List<Registration> registrations = registrationRepository.findRegistrationByEventsEventId(eventID);
+
+        int registrationCount = registrations.size();
+        int totalGuestCount = registrations.stream().mapToInt(Registration::getGuestCount).sum();
+
+        return totalGuestCount + registrationCount;
     }
 
 
@@ -113,6 +118,7 @@ public class RegistrationController {
             Registration existingRegistration = existingRegistrationOptional.get();
 
             existingRegistration.setEvents(registration.getEvents());
+            existingRegistration.setGuestCount(registration.getGuestCount());
             registrationRepository.save(existingRegistration);
             result.add(existingRegistration);
         }
