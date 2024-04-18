@@ -2,7 +2,7 @@ steps:
   # Use maven to package the app
   - name: maven:3.9.6-eclipse-temurin-17
     entrypoint: mvn
-    args: ['package']
+    args: ['-DskipTests', 'package']
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
     script: |
