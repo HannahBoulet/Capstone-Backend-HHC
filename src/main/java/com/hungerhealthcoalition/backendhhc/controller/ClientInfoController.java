@@ -28,6 +28,7 @@ public class ClientInfoController {
         return clientInfoRepository.findAll();
     }
 
+
     @Operation(summary = "Retrieve client by ID")
     @GetMapping("/{id}")
     public List<ClientInfo> getClientbyID(@PathVariable("id") String id) {

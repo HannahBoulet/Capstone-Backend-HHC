@@ -27,6 +27,7 @@ public class EventsController {
         return eventsRepository.findAll();
     }
 
+
     @Operation(summary = "Retrieve event by ID")
     @GetMapping("/{id}")
     public List<Events> getEventsbyID(@PathVariable("id") String id) {

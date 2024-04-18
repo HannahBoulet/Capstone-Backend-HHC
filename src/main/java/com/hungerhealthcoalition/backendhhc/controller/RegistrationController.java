@@ -13,8 +13,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/Registration")
 public class RegistrationController {
-
-
     private RegistrationRepository registrationRepository;
 
     public RegistrationController(RegistrationRepository registrationRepository) {

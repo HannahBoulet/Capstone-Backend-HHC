@@ -56,6 +56,7 @@ public class GoalController {
         return goals;
     }
 
+
     @Operation(summary = "Updates goal by Client ID and Goal Name")
     @PutMapping("/{id}/{goalName}")
     public List<Goals> updateGoal(@PathVariable("id") int id, @RequestBody Goals goals, @PathVariable("goalName") String goalName) {
@@ -77,6 +78,7 @@ public class GoalController {
         return result;
 
     }
+
 
     @Operation(summary = "Deletes goal by Client ID and Goal Name")
     @DeleteMapping("/{id}/{goalName}")
