@@ -54,6 +54,24 @@ public class RegistrationController {
         return registrationRepository.findRegistrationByEventsEventId(eventID);
     }
 
+
+    /**
+     * Retrieves count of client's by eventID
+     *
+     * @param eventID the id of the event.
+     * @return number of registrations for the event by eventID
+     */
+    @GetMapping("/count/{eventID}")
+    public int countByEventID(@PathVariable("eventID") int eventID) {
+        List<Registration> registrations = registrationRepository.findRegistrationByEventsEventId(eventID);
+
+        int registrationCount = registrations.size();
+        int totalGuestCount = registrations.stream().mapToInt(Registration::getGuestCount).sum();
+
+        return totalGuestCount + registrationCount;
+    }
+
+
     /**
      * Adds a new pairing to the Registration table
      *
@@ -100,6 +118,7 @@ public class RegistrationController {
             Registration existingRegistration = existingRegistrationOptional.get();
 
             existingRegistration.setEvents(registration.getEvents());
+            existingRegistration.setGuestCount(registration.getGuestCount());
             registrationRepository.save(existingRegistration);
             result.add(existingRegistration);
         }

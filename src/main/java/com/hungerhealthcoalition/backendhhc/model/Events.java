@@ -33,6 +33,9 @@ public class Events {
     @Column(name = "eventAdditionalPersonLimit")
     private int eventAdditionalPersonLimit;
 
+    @Column(name = "guestAvailability ")
+    private boolean guestAvailability ;
+
     @Column(name = "eventAgeLimit")
     private int eventAgeLimit;
 
@@ -71,5 +74,10 @@ public class Events {
     public int getEventAgeLimit() { return eventAgeLimit; }
 
     public void setEventAgeLimit(int eventAgeLimit) { this.eventAgeLimit = eventAgeLimit; }
+
+    public boolean getGuestAvailability() { return guestAvailability; }
+
+    public void setGuestAvailability(boolean guestAvailability) { this.guestAvailability = guestAvailability; }
+
 
 }
