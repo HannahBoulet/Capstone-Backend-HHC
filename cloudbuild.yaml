@@ -1,0 +1,16 @@
+steps:
+  # Use maven to package the app
+  - name: maven:3-jdk-17
+    entrypoint: mvn
+    args: ['package']
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    script: |
+      docker build -t us-east1-docker.pgk.dev/$PROJECT_ID/hhc/hhc-backend .
+    automapSubstitutions: true
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    script: |
+      gcloud run deploy hhc-backend --image us-east1-docker.pgk.dev/$PROJECT_ID/hhc/hhc-backend --region us-east1 --platform managed --allow-unauthenticated
+images:
+  - 'us-east1-docker.pgk.dev/$PROJECT_ID/hhc/hhc-backend'
