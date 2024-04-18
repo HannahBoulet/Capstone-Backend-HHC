@@ -73,6 +73,7 @@ public class EventsController {
             existingEvents.setEventName(events.getEventName());
             existingEvents.setEventPicture(events.getEventPicture());
             existingEvents.setEventAdditionalPersonLimit(events.getEventAdditionalPersonLimit());
+            existingEvents.setGuestAvailability(events.getGuestAvailability());
             existingEvents.setEventAgeLimit(events.getEventAgeLimit());
             eventsRepository.save(existingEvents);
             result.add(existingEvents);
