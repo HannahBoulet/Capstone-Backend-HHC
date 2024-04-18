@@ -1,6 +1,6 @@
 steps:
   # Use maven to package the app
-  - name: maven:3-jdk-17
+  - name: maven:3.9.6-eclipse-temurin-17
     entrypoint: mvn
     args: ['package']
   # Build the container image
