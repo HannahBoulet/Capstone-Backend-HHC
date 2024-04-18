@@ -3,6 +3,8 @@ package com.hungerhealthcoalition.backendhhc.controller;
 
 import com.hungerhealthcoalition.backendhhc.model.Registration;
 import com.hungerhealthcoalition.backendhhc.repository.RegistrationRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,8 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/Registration")
+@Tag(name = "Registration Table", description = "Endpoints for managing Event Registration information")
+
 public class RegistrationController {
     private RegistrationRepository registrationRepository;
 
@@ -19,46 +24,27 @@ public class RegistrationController {
         this.registrationRepository = registrationRepository;
     }
 
-    /**
-     * Retrieves all parings
-     *
-     * @return List of all parings
-     */
+    @Operation(summary = "Retrieves all Registrations")
     @GetMapping
     public List<Registration> getAllPairings() {
         return registrationRepository.findAll();
     }
 
-    /**
-     * Retrieves a list of parings of the given ID
-     *
-     * @param id the id of the event.
-     * @return specified client
-     */
+    @Operation(summary = "Retrieves all Registrations by Client ID")
     @GetMapping("/{id}")
     public List<Registration> getPairingByID(@PathVariable("id") int id) {
         List<Registration> result = registrationRepository.findRegistrationByClientInfoClientID(id);
         return result;
     }
 
-    /**
-     * Retrieves list of client's by eventID
-     *
-     * @param eventID the id of the event.
-     * @return specified client
-     */
+    @Operation(summary = "Retrieves all Registrations by Event ID")
     @GetMapping("/eventID/{eventID}")
     public List<Registration> getParingByEventID(@PathVariable("eventID") int eventID) {
         return registrationRepository.findRegistrationByEventsEventId(eventID);
     }
 
 
-    /**
-     * Retrieves count of client's by eventID
-     *
-     * @param eventID the id of the event.
-     * @return number of registrations for the event by eventID
-     */
+    @Operation(summary = "Retrieves count of amount of people going to Event by Event ID")
     @GetMapping("/count/{eventID}")
     public int countByEventID(@PathVariable("eventID") int eventID) {
         List<Registration> registrations = registrationRepository.findRegistrationByEventsEventId(eventID);
@@ -70,12 +56,7 @@ public class RegistrationController {
     }
 
 
-    /**
-     * Adds a new pairing to the Registration table
-     *
-     * @param registration the new registration data to be added
-     * @return the new registration data
-     */
+    @Operation(summary = "Adds Registrations by Client ID and Event ID")
     @PostMapping
     public Registration addPairing(@RequestBody Registration registration) {
 
@@ -94,14 +75,7 @@ public class RegistrationController {
         return registrationRepository.save(registration);
     }
 
-    /**
-     * Updates an existing Pairing
-     *
-     * @param clientId          the id of the paring to update
-     * @param eventID          the eventID of the paring to update
-     * @param registration the object which is being updated with updated pairing information
-     * @return the updated clients login information
-     */
+    @Operation(summary = "Updates all Registrations by Client ID and Event ID")
     @PutMapping("/{id}/{eventID}")
     public List<Registration> updateRegistration(@PathVariable("id") int clientId, @PathVariable("eventID") int eventID, @RequestBody Registration registration) {
         // Validate client existence first
@@ -124,13 +98,7 @@ public class RegistrationController {
         return result;
     }
 
-    /**
-     * Deletes a pairing object by ID
-     *
-     * @param id the id of the paring to delete
-     * @param eventID the eventID of the paring to delete
-     * @return list containing the deleted paring otherwise and empty list
-     */
+    @Operation(summary = "Delete Registrations by Client ID and Event ID")
     @DeleteMapping("/{id}/{eventID}")
     @Transactional
     public ResponseEntity<Void> deletePairingByIdAndEventID(@PathVariable("id") int id, @PathVariable("eventID") int eventID) {
@@ -140,16 +108,11 @@ public class RegistrationController {
     }
 
 
-
-    /**
-     * Deletes all pairing with the eventID
-     * @param eventID the eventID of the paring to delete
-     * @return list containing the deleted paring otherwise and empty list
-     */
+    @Operation(summary = "Delete all Registrations by Event ID")
     @DeleteMapping("/{eventID}")
     @Transactional
     public ResponseEntity<Void> deletePairingByEventID(@PathVariable("eventID") int eventID) {
-            registrationRepository.deleteRegistrationByEventsEventId(eventID);
+        registrationRepository.deleteRegistrationByEventsEventId(eventID);
 
         return ResponseEntity.noContent().build();
     }

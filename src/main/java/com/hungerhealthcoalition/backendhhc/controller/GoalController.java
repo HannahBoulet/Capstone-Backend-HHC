@@ -79,7 +79,6 @@ public class GoalController {
 
     }
 
-
     @Operation(summary = "Deletes goal by Client ID and Goal Name")
     @DeleteMapping("/{id}/{goalName}")
     @Transactional
@@ -88,7 +87,7 @@ public class GoalController {
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "Deletes all goals by Client ID" )
+    @Operation(summary = "Deletes all goals by Client ID")
     @DeleteMapping("/{id}/")
     @Transactional
     public ResponseEntity<Goals> deleteAllGoalByClientID(@PathVariable("id") int clientId) {
