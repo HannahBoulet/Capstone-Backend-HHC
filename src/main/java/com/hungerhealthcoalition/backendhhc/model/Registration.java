@@ -13,9 +13,6 @@ public class Registration {
     private int registrationID;
 
 
-    @Column(name = "guestCount")
-    private int guestCount;
-
 
 
     @ManyToOne
@@ -26,6 +23,8 @@ public class Registration {
     @JoinColumn(name = "eventID", referencedColumnName = "eventID")
     private Events events;
 
+    @Column(name = "guestCount")
+    private int guestCount;
 
 
     public ClientInfo getClientInfo() {
