@@ -93,13 +93,21 @@ public class ClientInfo {
         this.foodBox65 = foodBox65;
     }
 
-    public String getBox25Date() { return box25Date; }
+    public String getBox25Date() {
+        return box25Date;
+    }
 
-    public void setBox25Date(String box25Date) { this.box25Date = box25Date; }
+    public void setBox25Date(String box25Date) {
+        this.box25Date = box25Date;
+    }
 
-    public String getBox65Date() { return box65Date; }
+    public String getBox65Date() {
+        return box65Date;
+    }
 
-    public void setBox65Date(String box65Date) { this.box65Date = box65Date; }
+    public void setBox65Date(String box65Date) {
+        this.box65Date = box65Date;
+    }
 
     public Boolean getMedications() {
         return medications;
@@ -126,7 +134,11 @@ public class ClientInfo {
         this.password = pw.getPassword();
     }
 
-    public boolean getAdmin() { return admin; }
+    public boolean getAdmin() {
+        return admin;
+    }
 
-    public void setAdmin(boolean admin) { this.admin = admin; }
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
 }

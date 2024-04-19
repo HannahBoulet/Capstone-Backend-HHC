@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table (name = "Events")
+@Table(name = "Events")
 public class Events {
     @Id
     @Column(name = "eventId")
@@ -34,50 +34,90 @@ public class Events {
     private int eventAdditionalPersonLimit;
 
     @Column(name = "guestAvailability ")
-    private boolean guestAvailability ;
+    private boolean guestAvailability;
 
     @Column(name = "eventAgeLimit")
     private int eventAgeLimit;
 
-    public int getEventId(){ return eventId; }
+    public int getEventId() {
+        return eventId;
+    }
 
-    public void setEventId(int eventId){ this.eventId = eventId; }
+    public void setEventId(int eventId) {
+        this.eventId = eventId;
+    }
 
-    public String getEventName() { return eventName; }
+    public String getEventName() {
+        return eventName;
+    }
 
-    public void setEventName(String eventName) { this.eventName = eventName; }
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
 
-    public String getEventDate() { return eventDate; }
+    public String getEventDate() {
+        return eventDate;
+    }
 
-    public void setEventDate(String eventDate) { this.eventDate = eventDate; }
+    public void setEventDate(String eventDate) {
+        this.eventDate = eventDate;
+    }
 
-    public String getEventAddress() { return eventAddress; }
+    public String getEventAddress() {
+        return eventAddress;
+    }
 
-    public void setEventAddress(String eventAddress) { this.eventAddress = eventAddress; }
+    public void setEventAddress(String eventAddress) {
+        this.eventAddress = eventAddress;
+    }
 
-    public String getEventDescription() { return eventDescription; }
+    public String getEventDescription() {
+        return eventDescription;
+    }
 
-    public void setEventDescription(String eventDescription) { this.eventDescription = eventDescription; }
+    public void setEventDescription(String eventDescription) {
+        this.eventDescription = eventDescription;
+    }
 
-    public int getEventLimit() { return eventLimit; }
+    public int getEventLimit() {
+        return eventLimit;
+    }
 
-    public void setEventLimit(int eventLimit) { this.eventLimit = eventLimit; }
+    public void setEventLimit(int eventLimit) {
+        this.eventLimit = eventLimit;
+    }
 
-    public String getEventPicture() { return eventPicture; }
+    public String getEventPicture() {
+        return eventPicture;
+    }
 
-    public void setEventPicture(String eventPicture) { this.eventPicture = eventPicture; }
+    public void setEventPicture(String eventPicture) {
+        this.eventPicture = eventPicture;
+    }
 
-    public int getEventAdditionalPersonLimit() { return eventAdditionalPersonLimit; }
+    public int getEventAdditionalPersonLimit() {
+        return eventAdditionalPersonLimit;
+    }
 
-    public void setEventAdditionalPersonLimit(int eventAdditionalPersonLimit) { this.eventAdditionalPersonLimit = eventAdditionalPersonLimit; }
+    public void setEventAdditionalPersonLimit(int eventAdditionalPersonLimit) {
+        this.eventAdditionalPersonLimit = eventAdditionalPersonLimit;
+    }
 
-    public int getEventAgeLimit() { return eventAgeLimit; }
+    public int getEventAgeLimit() {
+        return eventAgeLimit;
+    }
 
-    public void setEventAgeLimit(int eventAgeLimit) { this.eventAgeLimit = eventAgeLimit; }
+    public void setEventAgeLimit(int eventAgeLimit) {
+        this.eventAgeLimit = eventAgeLimit;
+    }
 
-    public boolean getGuestAvailability() { return guestAvailability; }
+    public boolean getGuestAvailability() {
+        return guestAvailability;
+    }
 
-    public void setGuestAvailability(boolean guestAvailability) { this.guestAvailability = guestAvailability; }
+    public void setGuestAvailability(boolean guestAvailability) {
+        this.guestAvailability = guestAvailability;
+    }
 
 
 }

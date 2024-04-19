@@ -1,7 +1,6 @@
 package com.hungerhealthcoalition.backendhhc.repository;
 
 
-import com.hungerhealthcoalition.backendhhc.model.ClientInfo;
 import com.hungerhealthcoalition.backendhhc.model.Goals;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
