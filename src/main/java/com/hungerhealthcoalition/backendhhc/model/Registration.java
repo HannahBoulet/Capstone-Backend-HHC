@@ -13,8 +13,6 @@ public class Registration {
     private int registrationID;
 
 
-
-
     @ManyToOne
     @JoinColumn(name = "id", referencedColumnName = "id")
     private ClientInfo clientInfo;
@@ -38,8 +36,9 @@ public class Registration {
     public int getGuestCount() {
         return guestCount;
     }
-    public void setGuestCount (int guestCount ) {
-        this.guestCount  = guestCount ;
+
+    public void setGuestCount(int guestCount) {
+        this.guestCount = guestCount;
     }
 
     public Events getEvents() {

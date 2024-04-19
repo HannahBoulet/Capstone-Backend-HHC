@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/Registration")
 @Tag(name = "Goal Table", description = "Endpoints for managing Client's Goals information")
@@ -108,12 +109,11 @@ public class RegistrationController {
     }
 
 
-
     @Operation(summary = "Delete all Registrations by Event ID")
     @DeleteMapping("/{eventID}")
     @Transactional
     public ResponseEntity<Void> deletePairingByEventID(@PathVariable("eventID") int eventID) {
-            registrationRepository.deleteRegistrationByEventsEventId(eventID);
+        registrationRepository.deleteRegistrationByEventsEventId(eventID);
 
         return ResponseEntity.noContent().build();
     }
